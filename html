@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="chatbox">
+            <h2 class="title">AI Assistant</h2>
+            <div id="chatlogs" class="chatlogs">
+                <!-- Messages will appear here -->
+            </div>
+            <input type="text" id="userInput" class="input" placeholder="Talk to your assistant..." onkeyup="handleKey(event)">
+        </div>
+    </div>
+    
+    <script>
+        async function getAiResponse(userInput) {
+            // Mock AI response for demonstration purposes
+            return `AI Response to: "${userInput}"`;
+        }
+
+        function handleKey(event) {
+            if (event.key === 'Enter') {
+                const userInput = document.getElementById('userInput').value;
+                document.getElementById('userInput').value = ''; // Clear input field
+                
+                // Display user message
+                displayMessage(userInput, 'user');
+                
+                // Get AI response and display it
+                getAiResponse(userInput).then(aiReply => {
+                    displayMessage(aiReply, 'ai');
+                });
+            }
+        }
+
+        function displayMessage(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'ai-message');
+            messageDiv.textContent = message;
+            document.getElementById('chatlogs').appendChild(messageDiv);
+        }
+    </script>
+</body>
+</html>
